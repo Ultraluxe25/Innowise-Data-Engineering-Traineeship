@@ -1,1 +1,2 @@
-# Innowise-Data-Engineering-Traineeship
+# Innowise Data Engineering Traineeship
+![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Finnowise-group&psig=AOvVaw0eCcbMjXTNvQT9YbPn7Zwv&ust=1682080857284000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNiAjdS9uP4CFQAAAAAdAAAAABAI)
