@@ -1,0 +1,5 @@
+# files which changes won't be shown
+# file will be hidden
+
+# no .mp4 files
+*.mp4
