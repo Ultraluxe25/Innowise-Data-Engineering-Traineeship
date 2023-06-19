@@ -3,3 +3,6 @@
 
 # no .mp4 files
 *.mp4
+
+# no env files
+myenv/
