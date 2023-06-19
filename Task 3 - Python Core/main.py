@@ -1,26 +1,31 @@
+from __future__ import annotations
+
 import json
-import psycopg2
+
 import pandas as pd
+import psycopg2
+
 
 class JSONReader:
     '''
     Class reads data from json
     '''
+
     def __init__(self, file_name) -> None:
         self.file_name = file_name
-    
 
     def read_json(self) -> pd.DataFrame:
         '''
         Function saves json-format data into DataFrame
         '''
         try:
-            with open(self.file_name, 'r') as json_data:
+            with open(self.file_name) as json_data:
                 data = json.load(json_data)
                 df = pd.DataFrame(data)
-            return df    
-        # json.JSONDecodeError is an error that occurs when decoding or parsing a JSON string into a Python object. It indicates an invalid JSON data format.
-        except(FileNotFoundError, json.JSONDecodeError) as error:
+            return df
+        # json.JSONDecodeError is an error that occurs when decoding or parsing a JSON string
+        # into a Python object. It indicates an invalid JSON data format.
+        except (FileNotFoundError, json.JSONDecodeError) as error:
             print('Error during reading json-file:', error)
 
 
@@ -28,6 +33,7 @@ class DBConnector:
     '''
     Class connects with PostgreSQL database
     '''
+
     def __init__(self, dbname, user, password, host, port):
         self.dbname = dbname
         self.user = user
@@ -35,7 +41,6 @@ class DBConnector:
         self.host = host
         self.port = port
         self.connection = None
-
 
     def connect(self):
         '''
@@ -47,14 +52,14 @@ class DBConnector:
                 user=self.user,
                 password=self.password,
                 host=self.host,
-                port=self.port
+                port=self.port,
             )
             print('Successful connection!')
-        # Exception is the base class for all exceptions in Python. psycopg2.Error is an exception class defined in the psycopg2 library,
+        # Exception is the base class for all exceptions in Python. psycopg2.
+        # Error is an exception class defined in the psycopg2 library,
         # which is used to interact with a PostgreSQL database.
         except (Exception, psycopg2.Error) as error:
             print('Error during connection:', error)
-    
 
     def disconnect(self):
         try:
@@ -64,16 +69,17 @@ class DBConnector:
         except (Exception, psycopg2.Error) as error:
             print('Error during disconnection:', error)
         finally:
-            self.connection.close()
+            self.connection = None
 
 
 # Connect to DB:
+secret = input('Type your password: ')
 connector = DBConnector(
     dbname='postgres',
     user='postgres',
-    password='retico287',
+    password=secret,
     host='localhost',
-    port='5432'
+    port='5432',
 )
 connector.connect()
 
