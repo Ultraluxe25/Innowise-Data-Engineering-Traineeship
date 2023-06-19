@@ -2,7 +2,6 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: trailing-whitespace
     -   id: check-yaml
     -   id: debug-statements
     -   id: double-quote-string-fixer
