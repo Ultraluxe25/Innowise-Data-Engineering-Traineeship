@@ -13,3 +13,4 @@ ORDER BY
 
 
 -- 2. Display the 10 actors whose films rented the most, sorted in descending order.
+
