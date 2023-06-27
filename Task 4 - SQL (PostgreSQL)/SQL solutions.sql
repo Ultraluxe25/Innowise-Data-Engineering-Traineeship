@@ -34,3 +34,44 @@ ORDER BY
 	rented_times DESC
 LIMIT
 	10;
+
+
+-- 3. Display the category of films on which they spent the most money.
+SELECT
+    category.name,
+    SUM(payment.amount) AS total_spent
+FROM
+    category
+    INNER JOIN film_category ON
+        category.category_id = film_category.category_id
+    INNER JOIN film ON
+        film_category.film_id = film.film_id
+    INNER JOIN inventory ON
+        film.film_id = inventory.film_id
+    INNER JOIN rental ON
+        inventory.inventory_id = rental.inventory_id
+    INNER JOIN payment ON
+        rental.rental_id = payment.rental_id
+GROUP BY
+    category.name
+ORDER BY
+    total_spent DESC
+LIMIT
+	1;
+
+
+-- 4. Print titles of movies that are not in inventory. Write a query without using the IN operator.
+SELECT
+	film.title
+FROM
+	film
+	LEFT JOIN inventory ON
+		film.film_id = inventory.film_id
+WHERE
+	inventory.film_id IS NULL
+ORDER BY
+	film.title ASC;
+
+
+-- 5. Display the top 3 actors who have most appeared in films in the “Children” category. If several actors have the same number of films, output all.
+
