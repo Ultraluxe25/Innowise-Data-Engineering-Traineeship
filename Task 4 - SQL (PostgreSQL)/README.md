@@ -11,7 +11,8 @@
 
 # To get database from Docker-Compose
 1. Run Docker Desktop
-2. Print in *cmd* at folder where you store *.yml* file ```bash docker-compose up```.
+2. Print in *cmd* at folder where you store *.yml* file ```bash
+docker-compose up```.
 3. At Docker push 'Open in Browser' pgadmin4_c in container section.
 4. Sign in using current info:
     PGADMIN_DEFAULT_EMAIL: admin@admin.com
