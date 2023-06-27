@@ -284,3 +284,35 @@ FROM
         Student_in_class.class = Class.id
     INNER JOIN Student ON
         Student_in_class.student = Student.id;
+
+
+/* Задача 23:
+Выведите названия продуктов, которые покупал член семьи со статусом "son". 
+Для получения выборки вам нужно объединить таблицу Payments с таблицей FamilyMembers по полям family_member и member_id, 
+а также с таблицей Goods по полям good и good_id. */
+SELECT 
+    Goods.good_name 
+FROM
+    Goods
+    INNER JOIN Payments ON
+        Goods.good_id = Payments.good
+    INNER JOIN FamilyMembers ON 
+        Payments.family_member = FamilyMembers.member_id
+WHERE
+    FamilyMembers.status = 'son';
+
+
+/* Задача 24:
+Выведите идентификатор (поле room_id) и среднюю оценку комнаты (поле rating, для вывода используйте псевдоним avg_score), 
+составленную на основании отзывов из таблицы Reviews.
+Данная таблица связана с Reservations (таблица, где вы можете взять идентификатор комнаты) по полям reservation_id и Reservations.id. */
+SELECT 
+    Reservations.room_id, 
+    AVG(Reviews.rating) AS avg_score
+FROM 
+    Reviews
+    INNER JOIN Reservations ON 
+        Reviews.reservation_id = Reservations.id
+GROUP BY
+    Reservations.room_id;
+    
