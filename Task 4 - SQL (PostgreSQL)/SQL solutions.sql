@@ -74,4 +74,38 @@ ORDER BY
 
 
 -- 5. Display the top 3 actors who have most appeared in films in the “Children” category. If several actors have the same number of films, output all.
-
+SELECT
+	temporary_table.appearance_rank,
+	temporary_table.first_name,
+	temporary_table.last_name,
+	temporary_table.appeared_in_films
+FROM
+	(SELECT
+	 	 -- create Window function DENSE_RANK
+		 DENSE_RANK() OVER(
+			 ORDER BY 
+			 	COUNT(film.film_id) DESC
+		 ) AS appearance_rank,
+		 actor.first_name,
+		 actor.last_name,
+		 COUNT(film.film_id) AS appeared_in_films
+	 FROM
+		 actor
+		 INNER JOIN film_actor ON
+			 actor.actor_id = film_actor.actor_id
+		 INNER JOIN film ON
+			 film_actor.film_id = film.film_id
+		 INNER JOIN film_category ON
+			 film.film_id = film_category.film_id
+		 INNER JOIN category ON
+			 film_category.category_id = category.category_id
+	 WHERE
+		 category.name = 'Children'
+	 GROUP BY
+		 actor.actor_id
+	 ORDER BY
+		 appeared_in_films DESC
+	) AS temporary_table  -- subquery result table
+WHERE
+	appearance_rank < 4;
+	
