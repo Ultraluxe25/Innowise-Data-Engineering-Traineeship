@@ -13,4 +13,24 @@ ORDER BY
 
 
 -- 2. Display the 10 actors whose films rented the most, sorted in descending order.
-
+SELECT
+	actor.actor_id,
+	actor.first_name,
+	actor.last_name,
+	COUNT(rental.rental_id) AS rented_times
+FROM
+	actor
+	LEFT JOIN film_actor ON
+		actor.actor_id = film_actor.actor_id
+	LEFT JOIN film ON
+		film_actor.film_id = film.film_id
+	LEFT JOIN inventory ON
+		film.film_id = inventory.film_id
+	LEFT JOIN rental ON
+		inventory.inventory_id = rental.inventory_id
+GROUP BY
+	actor.actor_id
+ORDER BY
+	rented_times DESC
+LIMIT
+	10;
