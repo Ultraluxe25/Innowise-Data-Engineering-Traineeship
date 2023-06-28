@@ -121,7 +121,7 @@ SELECT
 	COUNT(CASE
 			WHEN customer.active = 0
 				THEN 1
-		END) AS inactive_customers,
+		END) AS inactive_customers
 FROM
 	city
 	INNER JOIN address ON
@@ -132,3 +132,28 @@ GROUP BY
 	city.city
 ORDER BY
 	inactive_customers DESC;
+
+
+-- 7. Output the category of movies that has the largest number of hours of total rental in cities 
+-- (customer.address_id in this city), and that starts with the letter “a”. 
+-- Do the same for cities in which there is a “-” symbol. Write everything in one request.
+SELECT
+	category.name,
+	EXTRACT (HOUR FROM SUM(rental.return_date - rental.rental_date)) AS total_rental_hours
+FROM
+	category
+	INNER JOIN film_category USING (category_id)
+	INNER JOIN film USING (film_id)
+	INNER JOIN inventory USING (film_id)
+	INNER JOIN rental USING (inventory_id)
+	INNER JOIN customer USING (customer_id)
+	INNER JOIN address USING (address_id)
+	INNER JOIN city USING (city_id)
+WHERE
+	LOWER(city.city) LIKE 'a%' OR city.city LIKE '%-%'
+GROUP BY
+	category.name
+ORDER BY
+	total_rental_hours DESC
+LIMIT
+	1;
