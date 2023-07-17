@@ -1,15 +1,15 @@
 import json_reader
-import database_connector
+import database_creator
 
 
-class RoomsTableCreator(database_connector.DBConnector):
+class RoomsTableCreator(database_creator.DataBaseCreator):
     '''
     Inherited сlass create table room for db
     '''
     pass    
 
 
-class StudentsTableCreator(database_connector.DBConnector):
+class StudentsTableCreator(database_creator.DataBaseCreator):
     '''
     Inherited сlass create table room for db
     '''
@@ -19,7 +19,7 @@ class StudentsTableCreator(database_connector.DBConnector):
 # Connect to DB:
 print('Connecting to Your database...')
 secret = input('Type your password: ')
-connector = database_connector.DBConnector(
+connector = database_creator.DataBaseCreator(
     dbname='postgres',
     user='postgres',
     password=secret,

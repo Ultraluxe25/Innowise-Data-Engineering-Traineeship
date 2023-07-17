@@ -2,7 +2,7 @@ import psycopg2
 import pandas as pd
 
 
-class DBConnector:
+class DataBaseCreator:
     '''
     Class connects with PostgreSQL database
     '''
@@ -37,7 +37,7 @@ class DBConnector:
 
     def create_table_rooms(self):
         '''
-        Creates empty table
+        Creates empty table rooms
         '''
         drop_table_rooms_query = '''
         DROP TABLE IF EXISTS rooms
@@ -62,7 +62,7 @@ class DBConnector:
 
     def create_table_students(self):
         '''
-        Creates empty table
+        Creates empty table students
         '''
         drop_table_students_query = '''
         DROP TABLE IF EXISTS students
