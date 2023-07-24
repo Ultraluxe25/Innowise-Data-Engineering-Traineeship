@@ -11,7 +11,6 @@ class JSONReader:
     '''
     Class to read data from JSON files and convert it to a DataFrame.
     '''
-
     def __init__(self, file_name: str) -> None:
         '''
         Constructor for the JSONReader class.
@@ -20,6 +19,7 @@ class JSONReader:
         file_name (str): The path to the JSON file to be read.
         '''
         self.file_name = file_name
+
 
     def read_json(self) -> pd.DataFrame:
         '''

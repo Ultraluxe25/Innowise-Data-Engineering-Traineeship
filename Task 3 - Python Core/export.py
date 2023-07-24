@@ -14,7 +14,6 @@ class Exporter:
     '''
     Class to export data to JSON and XML formats.
     '''
-
     def __init__(self, config_file: str):
         '''
         Constructor for the Exporter class.
@@ -32,6 +31,7 @@ class Exporter:
         self.port = config["port"]
         self.connection = None
 
+
     def connect(self):
         '''
         Function connects to PostgreSQL database.
@@ -47,6 +47,7 @@ class Exporter:
             print('Successful connection!')
         except (Exception, psycopg2.Error) as error:
             print('Error during connection:', error)
+
 
     def execute_query(self, query: str) -> list:
         '''
@@ -68,6 +69,7 @@ class Exporter:
             print('Error during query execution:', error)
             return None
 
+
     def disconnect(self):
         '''
         Disconnects from the PostgreSQL database.
@@ -80,6 +82,7 @@ class Exporter:
             print('Error during disconnection:', error)
         finally:
             self.connection = None
+
 
     def save_as_json(self, data: list, file_name: str):
         '''
@@ -108,6 +111,7 @@ class Exporter:
             json.dump(converted_data, json_file)
         print(f'Results saved as exported results/json/{file_name}.json successfully!')
         logger.info(f'Results saved as exported results/json/{file_name}.json successfully!')
+
 
     def save_as_xml(self, data: list, file_name: str):
         '''
