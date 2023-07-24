@@ -27,7 +27,7 @@ class TestJSONReader(unittest.TestCase):
         self.assertEqual(df.shape, (3, 2))
 
         # Optionally, you can check the column names if needed
-        expected_columns: List[str] = ['name', 'age']
+        expected_columns: list[str] = ['name', 'age']
         self.assertListEqual(list(df.columns), expected_columns)
 
 
