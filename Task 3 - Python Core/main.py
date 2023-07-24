@@ -5,17 +5,28 @@ import database_creator
 import queries
 import export
 
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-def load_config():
+def load_config() -> dict:
+    '''
+    Loads the configuration from the "config.json" file.
+
+    Returns:
+    dict: A dictionary containing the configuration data.
+    '''
     with open('config.json') as config_file:
         return json.load(config_file)
 
 
-def main():
+def main() -> None:
+    '''
+    The main function that orchestrates the data loading, database creation, query execution, and exporting.
+
+    This function reads data from JSON files, connects to the database, creates tables, inserts data, executes queries,
+    and exports the results in JSON and XML formats.
+    '''
     config = load_config()
 
     # Connect to DB:

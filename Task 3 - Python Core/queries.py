@@ -1,4 +1,4 @@
-query1 = '''
+query1: str = '''
     SELECT
         rooms.name AS room_number,
         COUNT(students.id) AS residents
@@ -10,7 +10,7 @@ query1 = '''
         rooms.name;
     '''
 
-query2 = '''
+query2: str = '''
     SELECT
         rooms.name,
         AVG(
@@ -28,7 +28,7 @@ query2 = '''
         5;
     '''
 
-query3 = '''
+query3: str = '''
     SELECT
         rooms.name,
         MAX(AGE(CURRENT_DATE, students.birthday)) - MIN(AGE(CURRENT_DATE, students.birthday)) 
@@ -45,7 +45,7 @@ query3 = '''
         5;
     '''
 
-query4 = '''
+query4: str = '''
     SELECT
         rooms.name AS room_number
     FROM

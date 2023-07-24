@@ -11,7 +11,17 @@ logger.setLevel(logging.INFO)
 
 
 class Exporter:
-    def __init__(self, config_file):
+    '''
+    Class to export data to JSON and XML formats.
+    '''
+
+    def __init__(self, config_file: str):
+        '''
+        Constructor for the Exporter class.
+
+        Parameters:
+        config_file (str): The path to the JSON config file containing database connection details.
+        '''
         with open(config_file) as config_file:
             config = json.load(config_file)
 
@@ -22,8 +32,10 @@ class Exporter:
         self.port = config["port"]
         self.connection = None
 
-
     def connect(self):
+        '''
+        Function connects to PostgreSQL database.
+        '''
         try:
             self.connection = psycopg2.connect(
                 database=self.dbname,
@@ -36,8 +48,16 @@ class Exporter:
         except (Exception, psycopg2.Error) as error:
             print('Error during connection:', error)
 
+    def execute_query(self, query: str) -> list:
+        '''
+        Executes the provided SQL query and returns the results.
 
-    def execute_query(self, query):
+        Parameters:
+        query (str): The SQL query to be executed.
+
+        Returns:
+        list: A list of tuples containing the results of the query.
+        '''
         try:
             cursor = self.connection.cursor()
             cursor.execute(query)
@@ -48,8 +68,10 @@ class Exporter:
             print('Error during query execution:', error)
             return None
 
-
     def disconnect(self):
+        '''
+        Disconnects from the PostgreSQL database.
+        '''
         try:
             if self.connection:
                 self.connection.close()
@@ -59,8 +81,14 @@ class Exporter:
         finally:
             self.connection = None
 
+    def save_as_json(self, data: list, file_name: str):
+        '''
+        Saves the data as JSON format.
 
-    def save_as_json(self, data, file_name):
+        Parameters:
+        data (list): The data to be saved in JSON format (a list of tuples).
+        file_name (str): The name of the file to be saved (without the file extension).
+        '''
         def convert_timedelta_to_str(value):
             if isinstance(value, timedelta):
                 return str(value.total_seconds())
@@ -81,8 +109,14 @@ class Exporter:
         print(f'Results saved as exported results/json/{file_name}.json successfully!')
         logger.info(f'Results saved as exported results/json/{file_name}.json successfully!')
 
+    def save_as_xml(self, data: list, file_name: str):
+        '''
+        Saves the data as XML format.
 
-    def save_as_xml(self, data, file_name):
+        Parameters:
+        data (list): The data to be saved in XML format (a list of tuples).
+        file_name (str): The name of the file to be saved (without the file extension).
+        '''
         root = ET.Element('results')
         for row in data:
             room_number = row[0]  # Unpacking modified as we have only one value in the result

@@ -9,14 +9,24 @@ logger.setLevel(logging.INFO)
 
 class JSONReader:
     '''
-    Class reads data from json
+    Class to read data from JSON files and convert it to a DataFrame.
     '''
-    def __init__(self, file_name) -> None:
+
+    def __init__(self, file_name: str) -> None:
+        '''
+        Constructor for the JSONReader class.
+
+        Parameters:
+        file_name (str): The path to the JSON file to be read.
+        '''
         self.file_name = file_name
 
     def read_json(self) -> pd.DataFrame:
         '''
-        Function saves json-format data into DataFrame
+        Reads data from the JSON file and converts it to a DataFrame.
+
+        Returns:
+        pd.DataFrame: A DataFrame containing the data from the JSON file.
         '''
         try:
             with open(self.file_name) as json_data:
