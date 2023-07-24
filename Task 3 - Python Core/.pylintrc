@@ -1,0 +1,5 @@
+[MASTER]
+max-line-length = 120
+
+[MESSAGES CONTROL]
+disable = E1101,C0103,W0613

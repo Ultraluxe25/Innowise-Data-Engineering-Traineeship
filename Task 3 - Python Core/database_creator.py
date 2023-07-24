@@ -1,3 +1,4 @@
+import json
 import psycopg2
 import pandas as pd
 
@@ -6,12 +7,15 @@ class DataBaseCreator:
     '''
     Class connects with PostgreSQL database
     '''
-    def __init__(self, dbname, user, password, host, port):
-        self.dbname = dbname
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
+    def __init__(self, config_file):
+        with open(config_file) as config_file:
+            config = json.load(config_file)
+
+        self.dbname = config["dbname"]
+        self.user = config["user"]
+        self.password = config["password"]
+        self.host = config["host"]
+        self.port = config["port"]
         self.connection = None
 
 

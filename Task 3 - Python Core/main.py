@@ -1,19 +1,26 @@
+import json
 import json_reader
 import database_creator
 import queries
 import export
 
 
+def load_config():
+    with open('config.json') as config_file:
+        return json.load(config_file)
+
+
 def main():
+    config = load_config()
+
     # Connect to DB:
     print('Connecting to Your database...')
-    secret = input('Type your password: ')
 
-    dbname = 'postgres'
-    user = 'postgres'
-    password = secret
-    host = 'localhost'
-    port = '5432'
+    dbname = config["dbname"]
+    user = config["user"]
+    password = config["password"]
+    host = config["host"]
+    port = config["port"]
 
     # Create a database connector and connect to the database
     db_connector = database_creator.DataBaseCreator(
