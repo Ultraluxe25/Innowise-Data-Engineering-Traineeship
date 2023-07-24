@@ -1,6 +1,11 @@
 import json
+import logging
 import psycopg2
 import pandas as pd
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class DataBaseCreator:
@@ -32,10 +37,12 @@ class DataBaseCreator:
                 port=self.port,
             )
             print('Successful connection!')
+            logger.info('Successful connection to the database!')
         # Exception is the base class for all exceptions in Python. psycopg2.
         # Error is an exception class defined in the psycopg2 library,
         # which is used to interact with a PostgreSQL database.
         except (Exception, psycopg2.Error) as error:
+            logger.error(f'Error during connection: {error}')
             print('Error during connection:', error)
 
 

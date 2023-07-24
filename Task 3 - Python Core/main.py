@@ -1,8 +1,13 @@
 import json
+import logging
 import json_reader
 import database_creator
 import queries
 import export
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 def load_config():
@@ -23,18 +28,12 @@ def main():
     port = config["port"]
 
     # Create a database connector and connect to the database
-    db_connector = database_creator.DataBaseCreator(
-        dbname,
-        user,
-        password,
-        host,
-        port,
-    )
+    db_connector = database_creator.DataBaseCreator("config.json")
     db_connector.connect()
 
     # Add data from json to pandas DataFrame
-    rooms = json_reader.JSONReader('json/rooms.json').read_json()
-    students = json_reader.JSONReader('json/students.json').read_json()
+    rooms = json_reader.JSONReader('initial data/json/rooms.json').read_json()
+    students = json_reader.JSONReader('initial data/json/students.json').read_json()
 
     # Create rooms and students tables
     db_connector.create_table_rooms()
@@ -48,7 +47,7 @@ def main():
     db_connector.disconnect()
 
     # Create a database extractor and connect to the database
-    db_extractor = export.Exporter(dbname, user, password, host, port)
+    db_extractor = export.Exporter("config.json")
     db_extractor.connect()
 
     # Execute queries and save results in JSON and XML formats
@@ -73,4 +72,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)  # Basic configuration for logging
     main()
